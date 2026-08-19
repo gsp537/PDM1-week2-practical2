@@ -1,4 +1,5 @@
-import { TestResults, TestSquare, advanceToFrame, checkBackgroundIsCalledInDraw, checkCanvasSize, testShapesMatchInOrder, getShapes, canvasStatus } from "../../lib/test-utils.js";
+import { TestResults, TestSquare, advanceToFrame, checkBackgroundIsCalledInDraw, checkCanvasSize, 
+    testShapesMatchInOrder, getShapes, canvasStatus, simulateMousePosition } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -57,41 +58,36 @@ async function runTests(canvas) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     // Check square moves with mouse
-    mouseX = 210;
-    mouseY = 333;
-    advanceToFrame(2);
+    simulateMousePosition(210, 333);
+    await advanceToFrame(2);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     testSquareAtCoord(mouseX, mouseY);
     // Out of bounds - left
-    mouseX = 24;
-    mouseY = 26;
-    advanceToFrame(3);
+    simulateMousePosition(24, 26);
+    await advanceToFrame(3);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     testSquareAtCoord(mouseX, mouseY);
     // Out of bounds - right
-    mouseX = 401;
-    mouseY = 58;
-    advanceToFrame(4);
+    simulateMousePosition(401, 58);
+    await advanceToFrame(4);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     testSquareAtCoord(mouseX, mouseY);
     // Out of bounds - top
-    mouseX = 200;
-    mouseY = 0;
-    advanceToFrame(5);
+    simulateMousePosition(200, 0);
+    await advanceToFrame(5);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     testSquareAtCoord(mouseX, mouseY);
     // Out of bounds - bottom
-    mouseX = 75;
-    mouseY = 390;
-    advanceToFrame(6);
+    simulateMousePosition(75, 390);
+    await advanceToFrame(6);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }

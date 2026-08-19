@@ -1,4 +1,4 @@
-import { TestResults, advanceToFrame, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes, canvasStatus } from "../../lib/test-utils.js";
+import { TestResults, advanceToFrame, checkBackgroundIsCalledInDraw, checkCanvasSize, getShapes, canvasStatus } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -43,20 +43,20 @@ async function runTests(canvas) {
     }
     const shapes1 = getShapes();
     // at frame 2, moving forward on both axes
-    advanceToFrame(2);
+    await advanceToFrame(2);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes2 = getShapes();
     checkDirection(shapes1, shapes2, 3, 3, 2);
     
-    advanceToFrame(166);
+    await advanceToFrame(166);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes166 = getShapes();
     // at frame 167, moving forward on x, up on y axis
-    advanceToFrame(167);
+    await advanceToFrame(167);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
@@ -64,36 +64,36 @@ async function runTests(canvas) {
     checkDirection(shapes166, shapes167, 3, -3, 167 );
     // at frame 170, moving left and up
 
-    advanceToFrame(169);
+    await advanceToFrame(169);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes169 = getShapes();
-    advanceToFrame(170);
+    await advanceToFrame(170);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes170 = getShapes();
     checkDirection(shapes169, shapes170, -3, -3, 170);
 
-    advanceToFrame(209);
+    await advanceToFrame(209);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes209 = getShapes();
-    advanceToFrame(210);
+    await advanceToFrame(210);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes210 = getShapes();
     checkDirection(shapes209, shapes210, -3, 3, 210);
 
-    advanceToFrame(349);
+    await advanceToFrame(349);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     const shapes349 = getShapes();
-    advanceToFrame(350);
+    await advanceToFrame(350);
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }

@@ -1,4 +1,4 @@
-import { getShapes, TestResults, advanceToFrame, canvasStatus } from "../../lib/test-utils.js";
+import { getShapes, TestResults, advanceToFrame, canvasStatus } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -24,8 +24,8 @@ async function runTests(canvas) {
     } else {
         TestResults.addFail(`When the sketch loads, there should be no shapes drawn on screen. Found ${actualShapes.length} shapes.`);
     }
-    mouseIsPressed = true;
-    advanceToFrame(frameCount + 5);
+    window.mock_mouseIsPressed = true;
+    await advanceToFrame(frameCount + 5);
     actualShapes = getShapes();
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
@@ -36,8 +36,8 @@ async function runTests(canvas) {
         TestResults.addFail(`When the mouse is held down for five frames, five new shapes should be on the screen. ${actualShapes.length - shapeCount} new shapes were found.`);
     }
     shapeCount = actualShapes.length;
-    mouseIsPressed = false;
-    advanceToFrame(frameCount + 1);
+    window.mock_mouseIsPressed = false;
+    await advanceToFrame(frameCount + 1);
     actualShapes = getShapes();
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
@@ -51,8 +51,8 @@ async function runTests(canvas) {
             TestResults.addFail("When the mouse is released, previously drawn shapes should remain on screen. This does not appear to be the case.");
         }
     }
-    keyIsPressed = true;
-    advanceToFrame(frameCount + 1);
+    window.mock_keyIsPressed = true;
+    await advanceToFrame(frameCount + 1);
     actualShapes = getShapes();
     for (const e of canvasStatus.errors) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);

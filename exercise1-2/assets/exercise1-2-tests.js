@@ -1,4 +1,7 @@
-import { checkCanvasSize, TestResults, checkBackgroundIsCalledInDraw, canvasStatus, testSettingCalledBeforeShapes, RANDOM_RE, testSettingIsCalled, advanceToFrame, getShapes, TestCircle, testShapesMatchWithoutOrder, testShapesMatchInOrder } from "../../lib/test-utils.js";
+import { checkCanvasSize, TestResults, checkBackgroundIsCalledInDraw, canvasStatus, 
+    testSettingCalledBeforeShapes, RANDOM, 
+    testSettingIsCalled, advanceToFrame, getShapes, TestCircle, testShapesMatchWithoutOrder, 
+    testShapesMatchInOrder } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -16,10 +19,10 @@ function testLoad() {
         TestResults.addFail("<code>random()</code> is not called when the sketch is first loaded. If your code <em>does</em> call <code>random()</code> and this test is still failing, you have probably called <code>random()</code> from the wrong place in your code. Have a look at the randomColours example from Week 2 Lecture 2 to see where it should be called.");
         TestResults.addWarning("No further tests will run until <code>random()</code> is called as expected.");
     } else if (canvasStatus.randomCalls.length === 1) {
-        if (testSettingIsCalled(RANDOM_RE, true, false)) {
+        if (testSettingIsCalled(RANDOM.re, true, false)) {
             TestResults.addPass("<code>random()</code> is called in <code>setup()</code> when the sketch is first loaded.");
         }
-        else if (testSettingIsCalled(RANDOM_RE, false, true)) {
+        else if (testSettingIsCalled(RANDOM.re, false, true)) {
             TestResults.addFail("<code>random()</code> is called in <code>draw()</code> when it is expected in <code>setup()</code>. Calling <code>random()</code> in draw will produce a different random value every frame.");
         }
         else {
@@ -42,10 +45,11 @@ function testLoad() {
     }
 }
 
-function testNextFrame() {
+async function testNextFrame() {
     if (canvasStatus.randomCalls.length === 1) {
         const speedChange = canvasStatus.randomCalls[0].returnVal;
-        advanceToFrame(frameCount+1);
+        console.log(speedChange)
+        await advanceToFrame(frameCount+1);
         for (const e of canvasStatus.errors) {
             TestResults.addFail(`In frame ${frameCount}, ${e}`);
         }
@@ -54,16 +58,17 @@ function testNextFrame() {
             TestResults.addFail(`When the frame count is ${frameCount}, there should be one circle at a randomly assigned x coordinate. The sketch currently has ${shapes.length} shapes.`);
         } else {
             const expectedCircle = new TestCircle(speedChange, 300, 100);
+            console.log(shapes[0]);
             if (testShapesMatchInOrder([expectedCircle], shapes, false)) {
                 TestResults.addPass(`When the frame count is ${frameCount}, the circle has moved by the randomly assigned amount.`);
                 // Test moving left
                 const firstLeft = Math.ceil(width / speedChange) + 1;
-                advanceToFrame(firstLeft);
+                await advanceToFrame(firstLeft);
                 for (const e of canvasStatus.errors) {
                     TestResults.addFail(`In frame ${frameCount}, ${e}`);
                 }
                 const circleX1 = getShapes()[0].x;
-                advanceToFrame(firstLeft + 1);
+                await advanceToFrame(firstLeft + 1);
                 for (const e of canvasStatus.errors) {
                     TestResults.addFail(`In frame ${frameCount}, ${e}`);
                 }
@@ -90,7 +95,7 @@ async function runTests(canvas) {
         TestResults.addFail(`In frame ${frameCount}, ${e}`);
     }
     testLoad();
-    testNextFrame();
+    await testNextFrame();
     TestResults.display(resultsDiv);
 }
 

@@ -1,4 +1,4 @@
-import { TestResults, canvasStatus, testSettingCalledBeforeShapes, advanceToFrame, getShapes, BACKGROUND, coloursMatch, testSettingIsCalled } from "../../lib/test-utils.js";
+import { TestResults, canvasStatus, testSettingCalledBeforeShapes, advanceToFrame, getShapes, BACKGROUND, coloursMatch, testSettingIsCalled } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
@@ -22,8 +22,8 @@ async function runTests(canvas) {
         }
         const startBG = canvasStatus.backgroundColour;
         let startFill = canvasStatus.fillColour;
-        mouseIsPressed = false;
-        advanceToFrame(2);
+        window.mock_mouseIsPressed = false;
+        await advanceToFrame(2);
         for (const e of canvasStatus.errors) {
             TestResults.addFail(`In frame ${frameCount}, ${e}`);
         }
@@ -44,8 +44,8 @@ async function runTests(canvas) {
         } else {
             TestResults.addFail(`Expected 1 shape but found ${actualShapes.length} at frame 2. Is <code>background()</code> always called in <code>draw()</code>?`);
         }
-        mouseIsPressed = true;
-        advanceToFrame(5);
+        window.mock_mouseIsPressed = true;
+        await advanceToFrame(5);
         for (const e of canvasStatus.errors) {
             TestResults.addFail(`In frame ${frameCount}, ${e}`);
         }
@@ -63,8 +63,8 @@ async function runTests(canvas) {
         } else {
             TestResults.addFail("When the mouse is first pressed, the fill colour does not change as expected. It should be the same as the initial background colour.");
         }
-        mouseIsPressed = false;
-        advanceToFrame(7);
+        window.mock_mouseIsPressed = false;
+        await advanceToFrame(7);
         for (const e of canvasStatus.errors) {
             TestResults.addFail(`In frame ${frameCount}, ${e}`);
         }
