@@ -1,4 +1,4 @@
-import { TestResults, canvasStatus, testSettingCalledBeforeShapes, advanceToFrame, getShapes, BACKGROUND, coloursMatch, testSettingIsCalled } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@main/p5jsTestingLibrary.js";
+import { TestResults, canvasStatus, testSettingCalledBeforeShapes, advanceToFrame, getShapes, BACKGROUND, coloursMatch, testSettingIsCalled } from "https://cdn.jsdelivr.net/gh/Supportive-IDE/p5js-testing-demo@latest/p5jsTestingLibrary.js";
 
 /**
  * A hacky solution to wait for p5js to load the canvas. Include in all exercise test files.
