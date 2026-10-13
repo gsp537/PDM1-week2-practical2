@@ -2,11 +2,19 @@ function setup() {
     createCanvas(400, 400);
     noStroke();
     fill(255, 0, 150);
+    background(0);
 }
 
 function draw() {
-    background(0);
     if (mouseIsPressed) {
-        circle(width / 2, height / 2, width * 0.8);
+        circle(random(width), random(height), random(width) / 5);
+    }  
+    if (keyIsPressed) {
+        background (0); 
     }
+    
+    random(min, max)
+    
+
+
 }
